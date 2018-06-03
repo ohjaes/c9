@@ -1,7 +1,12 @@
 class CommentController < ApplicationController
+  before_action :authenticate_user!
   def create
     post = Post.find(params[:id])
-    post.comments.create(text: params[:input_comment])
+    comment = post.comments.new
+    comment.text = params[:input_comment]
+    comment.user_id = current_user.id
+    
+    comment.save
     
     redirect_to :back
   end

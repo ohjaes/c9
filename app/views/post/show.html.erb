@@ -1,18 +1,23 @@
-<h1><%= @post.title %></h1>
-<p><%= @post.content %></p>
+<div align='center'>
+<h1>제목: <%= @post.title %></h1>
+<p>내용: <%= @post.content %></p>
 <br>
 ———————————————————————————
 <br>
-<% @comments.each do |c| %>
-    <p><%=c.text%></p>
-    <a data-method="delete" href="/comment/<%=c.id%>">삭제</a>
-    <br>
-    ———————————————————————————
-<% end %>
+<ul class="list-group">
+  <% @comments.each do |c| %>
+    <li class="list-group-item"><p><%=c.text%><br><a data-method="delete" href="/comment/<%=c.id%>">삭제</a></p></li>
+  <% end %>
+</ul>    
+
+    
+
 <form action="/comment/<%=@post.id%>" method="post">
   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
   <label for="textarea">Comment</label>
   <textarea name="input_comment" id="textarea"></textarea>
   <br>
-  <input class="btn" type="submit" value="댓글">
+  <input class="btn" type="submit" value="댓글달기">
 </form>
+<a href='/' class="btn btn-light">홈으로</a>
+</div>

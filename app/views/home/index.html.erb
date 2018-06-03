@@ -1,0 +1,17 @@
+<div align="right">
+<% if user_signed_in? %>
+    <div align="right" class="btn btn-light">
+        <%= link_to '로그아웃', '/users/sign_out', method: :delete %><br>
+    </div>
+    <div align="center">
+        <a href="/post/index" class="btn btn-primary">게시글 작성하기</a>
+    </div>
+<div align='right'>
+<% else %>
+    <a href="/users/sign_in" align="center" class="btn btn-primary">로그인</a>
+    <a href="/users/sign_up" align="right" class="btn btn-primary">회원가입</a>
+    </div>
+    <div align="center">
+<% end %>
+</div>
+<br><br>

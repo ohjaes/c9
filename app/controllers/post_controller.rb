@@ -1,11 +1,18 @@
 class PostController < ApplicationController
+  before_action :authenticate_user!
+  before_action :is_writer?, only: [:edit, :update, :delete]
   
   def index
     @posts = Post.page params[:page]
   end
   
+  def index2
+    @posts = Post.page params[:page]
+  end
+  
   def create
-    post = Post.new
+    user = User.find(current_user.id)
+    post = user.posts.new
     post.title = params[:input_title]
     post.content = params[:input_content]
     post.save
@@ -36,5 +43,14 @@ class PostController < ApplicationController
     @post = Post.find(params[:id])
     @comments = @post.comments
   end
+  
+  private
+  def is_writer?
+    post = Post.find(params[:id])
+    if post.user.id != current_user.id
+      redirect_to '/'
+    end
+  end
+  
   
 end

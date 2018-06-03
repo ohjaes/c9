@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
 
-  root 'post#index'
+  get 'home/index'
+
+  devise_for :users
+  root 'post#index2'
   
+  get '/post/' => 'post#show'
   get '/edit/:id' => 'post#edit'
-  
+  get '/post/index' => 'post#index'
+    
   #post
   get '/post/:id' => 'post#show'
   post '/post' => 'post#create'
